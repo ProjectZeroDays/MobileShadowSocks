@@ -621,6 +621,7 @@
 					"./zxing-objc/**",
 				);
 				INFOPLIST_FILE = "MobileShadowSocks/MobileShadowSocks-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -638,6 +639,7 @@
 					"./zxing-objc/**",
 				);
 				INFOPLIST_FILE = "MobileShadowSocks/MobileShadowSocks-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
