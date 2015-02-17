@@ -47,7 +47,7 @@ rm -f "${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent"
 # Version info
 VERINFO="${PROJECT_DIR}/MobileShadowSocks/SettingTableViewController.m"
 NOWVER="$(grep "APP_VER" "${VERINFO}" | awk '{print $3}' | sed 's/["@]//g' | head -1)"
-NOWBUILD="$(grep "APP_BUILD" "${VERINFO}" | awk '{print $3}' | sed 's/["@]//g' | head -1)"
+NOWBUILD="$(grep "APP_BUILD" "${VERINFO}" | awk '{print $3}' | sed 's/["@]//g' | head -1)b"
 
 # Clean old build
 cd "${BUILT_PRODUCTS_DIR}"
