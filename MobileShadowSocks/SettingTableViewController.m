@@ -19,6 +19,7 @@
 #import "PerAppStubViewController.h"
 #import "UIView+UserInfo.h"
 #import "AppDelegate.h"
+#import "CommonCrypto/CommonDigest.h"
 
 #define APP_VER @"0.3.2"
 #define APP_BUILD @"3"
@@ -76,6 +77,26 @@ typedef enum {
 
 @interface UIApplication (Addition)
 - (void)setApplicationBadgeString:(NSString *)badgeString;
+@end
+
+@interface NSData (encrypto)
+- (NSString *) sha1;
+@end
+
+@implementation NSData (encrypto)
+- (NSString*) sha1
+{
+    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+    
+    CC_SHA1(self.bytes, (CC_LONG)self.length, digest);
+    
+    NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    
+    for(int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x", digest[i]];
+    
+    return output;
+}
 @end
 
 @interface SettingTableViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate>
@@ -319,6 +340,7 @@ typedef enum {
                                                   cancelButtonTitle:NSLocalizedString(@"Cancel",nil) 
                                                   otherButtonTitles:NSLocalizedString(@"China Whitelist",nil),
                                                                     NSLocalizedString(@"Redirect All Traffic",nil),
+                                                                    NSLocalizedString(@"Latest GFWList",nil),
                                   nil];
             [alert setTag:kAlertViewTagDefaultPac];
             [alert show];
@@ -590,6 +612,38 @@ typedef enum {
                 NSString *pacFile = @"";
                 if (buttonIndex == [alertView firstOtherButtonIndex]) {
                     pacFile = _pacDefaultFile;
+                } else if (buttonIndex == [alertView firstOtherButtonIndex] + 2) {
+                    NSURL *url = [NSURL URLWithString:@"https://raw.githubusercontent.com/clowwindy/gfwlist2pac/master/test/proxy.pac"];
+                    NSData *urlData = [NSData dataWithContentsOfURL:url];
+                    if (urlData) {
+                        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                        NSString *documentsDirectory = [paths objectAtIndex:0];
+                        NSString *pacOriginal = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
+                        NSString *pacText = [pacOriginal stringByReplacingOccurrencesOfString:@"127.0.0.1:1080" withString:@"127.0.0.1:1983"];
+                        urlData = [pacText dataUsingEncoding:NSUTF8StringEncoding];
+                        NSString *fileName = [NSString stringWithFormat:@"%@%@", [[NSMutableString alloc] initWithString:[urlData sha1]], @".pac"];
+                        NSString *dirPath = [NSString stringWithFormat:@"%@/ShadowSocks", documentsDirectory];
+                        NSString *filePath = [NSString stringWithFormat:@"%@/%@", dirPath, fileName];
+                        BOOL isDir = NO;
+                        NSFileManager *fileManager = [NSFileManager defaultManager];
+                        BOOL existed = [fileManager fileExistsAtPath:dirPath isDirectory:&isDir];
+                        NSError *error;
+                        if (!(isDir == YES && existed == YES)) {
+                            [fileManager createDirectoryAtPath:dirPath withIntermediateDirectories:YES attributes:nil error:&error];
+                        }
+                        
+                        BOOL result = [urlData writeToFile:filePath atomically:YES];
+                        if (result) {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Done", nil)
+                                                                            message:nil
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                                  otherButtonTitles:nil];
+                            [alert show];
+                            [alert release];
+                            pacFile = filePath;
+                        }
+                    }
                 }
                 [[ProfileManager sharedProfileManager] saveObject:pacFile forKey:kProfilePac];
                 for (UITableViewCell *cell in self.tableView.visibleCells) {

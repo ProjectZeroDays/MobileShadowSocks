@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0FDEBBA01A9F4E1600F20DED /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FDEBB9F1A9F4E1600F20DED /* Images.xcassets */; };
 		4B07BAC918937B44003600C0 /* libZXingObjC-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B07BABD18937ACF003600C0 /* libZXingObjC-iOS.a */; };
 		4B07BACB18937CC1003600C0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B07BACA18937CC1003600C0 /* AVFoundation.framework */; };
 		4B07BACF18937CD1003600C0 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B07BACE18937CD1003600C0 /* CoreMedia.framework */; };
@@ -121,6 +122,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0FDEBB9F1A9F4E1600F20DED /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4B07BAA318937ACA003600C0 /* ZXingObjC.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ZXingObjC.xcodeproj; path = "../zxing-objc/ZXingObjC.xcodeproj"; sourceTree = "<group>"; };
 		4B07BACA18937CC1003600C0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4B07BACC18937CC9003600C0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -307,6 +309,7 @@
 				4BF45D711899FD670026F956 /* ImagePickerViewController.h */,
 				4BF45D721899FD670026F956 /* ImagePickerViewController.m */,
 				4B07BAA318937ACA003600C0 /* ZXingObjC.xcodeproj */,
+				0FDEBB9F1A9F4E1600F20DED /* Images.xcassets */,
 				4B3A811416BA4A2C00BE1B4C /* Supporting Files */,
 			);
 			path = MobileShadowSocks;
@@ -384,7 +387,7 @@
 		4B3A810016BA4A2C00BE1B4C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Linus Yang";
 			};
 			buildConfigurationList = 4B3A810316BA4A2C00BE1B4C /* Build configuration list for PBXProject "MobileShadowSocks" */;
@@ -458,6 +461,7 @@
 				4B6CD06A189191AF00360A26 /* AppIcon40x40@2x.png in Resources */,
 				4B6CD075189191AF00360A26 /* Icon-72.png in Resources */,
 				4B6CD074189191AF00360A26 /* AppIcon76x76@2x.png in Resources */,
+				0FDEBBA01A9F4E1600F20DED /* Images.xcassets in Resources */,
 				4B6CD06D189191AF00360A26 /* AppIcon57x57.png in Resources */,
 				4B6097791869FDC300A5FB30 /* InfoPlist.strings in Resources */,
 				4B6CD073189191AF00360A26 /* AppIcon76x76.png in Resources */,
@@ -564,10 +568,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					arm64,
-					armv7,
-				);
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -582,6 +582,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -591,10 +592,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					arm64,
-					armv7,
-				);
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -612,6 +609,8 @@
 		4B3A812216BA4A2C00BE1B4C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobileShadowSocks/MobileShadowSocks-Prefix.pch";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
@@ -629,6 +628,8 @@
 		4B3A812316BA4A2C00BE1B4C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobileShadowSocks/MobileShadowSocks-Prefix.pch";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;

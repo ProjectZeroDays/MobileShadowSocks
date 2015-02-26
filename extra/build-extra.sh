@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export PATH=/opt/local/bin:$PATH
 set -e
 
 if [[ "${XCODE_VERSION_MAJOR}" -ge "0460" ]]; then
@@ -113,7 +114,7 @@ chmod 755 makedeb/DEBIAN/prerm
 chmod 755 makedeb/DEBIAN/extrainst_
 OLDPATH="${PATH}"
 export PATH="${PROJECT_DIR}/extra:${PATH}"
-"${PROJECT_DIR}/extra/fakeroot" "${PROJECT_DIR}/extra/dpkg-deb" -b makedeb t.deb
+"${PROJECT_DIR}/extra/fakeroot" "${PROJECT_DIR}/extra/dpkg-deb" -Z lzma -b makedeb t.deb
 export PATH="${OLDPATH}"
 mkdir -p "${PROJECT_DIR}/release"
 mv -f t.deb "${PROJECT_DIR}/release/${DEBNAME}"_iphoneos-arm.deb
